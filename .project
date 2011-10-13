@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>mdraid-snmp-mib</name>
+	<comment></comment>
+	<projects>
+		<project>hacking-snmp-mib</project>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+</projectDescription>
