@@ -29,7 +29,7 @@ mdRaidTable OBJECT-TYPE
     SYNTAX      SEQUENCE OF SmdRaidArrayEntry
     MAX-ACCESS  not-accessible
     STATUS      current
-    DESCRIPTION "Table of HDD SMART information."
+    DESCRIPTION "Table of MD RAID information."
     ::= { mdRaid 2 }
 
 mdRaidArrayEntry OBJECT-TYPE
