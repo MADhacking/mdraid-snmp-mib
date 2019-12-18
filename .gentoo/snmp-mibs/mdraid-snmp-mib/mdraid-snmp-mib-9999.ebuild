@@ -25,7 +25,7 @@ RDEPEND="snmp-mibs/hacking-snmp-mib"
 DEPEND="test? ( ${RDEPEND} net-libs/libsmi )"
 
 src_test() {
-    files=("usr/share/snmp/mibs/SMARTCTL-MIB.txt")
+    files=("usr/share/snmp/mibs/MD-RAID-MIB.txt")
     exitval=0
     for f in ${files[*]}; do
         if (( $(smilint -s --level=4 "${f}" 2>&1 | wc -l ) > 0 )); then
