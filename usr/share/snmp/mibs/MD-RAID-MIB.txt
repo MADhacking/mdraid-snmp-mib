@@ -3,11 +3,13 @@ MD-RAID-MIB DEFINITIONS ::= BEGIN
 -- imports and exports
 
 IMPORTS
+    MODULE-COMPLIANCE, OBJECT-GROUP
+        FROM SNMPv2-CONF
     MODULE-IDENTITY, OBJECT-TYPE, Integer32, Gauge32
         FROM SNMPv2-SMI
     DisplayString, TruthValue
         FROM SNMPv2-TC
-    hackingExperimental
+    hackingInternal, hackingExperimental
         FROM HACKING-SNMP-MIB;
 
 mdRaidMIB MODULE-IDENTITY
@@ -21,7 +23,8 @@ mdRaidMIB MODULE-IDENTITY
 	DESCRIPTION		"First version"
     ::= { mdRaid 1 }
 
-mdRaid		OBJECT IDENTIFIER ::= { hackingExperimental 2 }
+mdRaid                  OBJECT IDENTIFIER ::= { hackingExperimental 2 }
+mdRaidMIBConformance    OBJECT IDENTIFIER ::= { hackingInternal 2 }
 
 --
 
@@ -188,5 +191,48 @@ mdRaidArrayRaidComponents OBJECT-TYPE
     STATUS      current
     DESCRIPTION "The total number of component devices required for this array."
     ::= { mdRaidArrayEntry 18 }
+
+-- Conformance information ******************************************
+
+mdRaidMIBCompliances OBJECT IDENTIFIER ::= {mdRaidMIBConformance 1}
+mdRaidMIBGroups      OBJECT IDENTIFIER ::= {mdRaidMIBConformance 2}
+
+-- Compliance statements
+
+mdRaidCompliance MODULE-COMPLIANCE
+    STATUS       current
+    DESCRIPTION "The compliance statement for SNMP entities which
+                 implement the mdRaid-MIB."
+
+    MODULE    -- this module
+        MANDATORY-GROUPS { mdRaidGroup }
+    ::= { mdRaidMIBCompliances 1 }
+
+mdRaidGroup OBJECT-GROUP
+    OBJECTS 
+    {
+        mdRaidArrayIndex,
+        mdRaidArrayDev,
+        mdRaidArrayVersion,
+        mdRaidArrayUUID,
+        mdRaidArrayLevel,
+        mdRaidArrayLayout,
+        mdRaidArrayChunkSize,
+        mdRaidArraySize,
+        mdRaidArrayDeviceSize,
+        mdRaidArrayHealthOK,
+        mdRaidArrayHasFailedComponents,
+        mdRaidArrayHasAvailableSpares,
+        mdRaidArrayTotalComponents,
+        mdRaidArrayActiveComponents,
+        mdRaidArrayWorkingComponents,
+        mdRaidArrayFailedComponents,
+        mdRaidArraySpareComponents,
+        mdRaidArrayRaidComponents
+    }
+    STATUS       current
+    DESCRIPTION "A collection of objects providing for remote
+                 monitoring of MD-RAID health data."
+    ::= { mdRaidMIBGroups 1 }
 
 END
